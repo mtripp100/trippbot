@@ -16,5 +16,4 @@ def ingest_compact():
         phrases.append((latin, translation, notes))
 
     print("{} phrases ingested.".format(len(phrases)))
-
-ingest_compact()
+    return phrases
