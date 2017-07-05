@@ -1,4 +1,4 @@
-from database import pick_phrase
+from database import pick_phrase, record_phrase
 import datetime
 import tweepy
 import os
@@ -10,12 +10,13 @@ def run():
         return
 
     phrase = pick_phrase()
-    message = "\"{}\" — {}".format(phrase[0], phrase[1])
+    message = "\"{}\" — {}".format(phrase[1], phrase[2])
     print(message)
 
     api = get_api()
     status = api.update_status(status=message)
-    print("Tweeted {}.".format(status.id_str))
+
+    record_phrase(status.id_str, phrase[0])
 
 def should_tweet(dt):
     rounded_hour = dt.time().hour if dt.time().minute < 30 else (dt.time().hour + 1) % 24

@@ -27,5 +27,12 @@ def do_upload():
 def pick_phrase():
     conn = get_connection()
     with conn.cursor() as cursor:
-        cursor.execute("SELECT latin, translation, notes FROM phrases ORDER BY RANDOM() LIMIT 1")
+        cursor.execute("SELECT phrase_id, latin, translation, notes FROM phrases ORDER BY RANDOM() LIMIT 1")
+        conn.commit()
         return cursor.fetchone()
+
+def record_phrase(tweet_id, phrase_id):
+    conn = get_connection()
+    with conn.cursor() as cursor:
+        cursor.execute("INSERT INTO tweets(tweet_id, phrase_id) VALUES (%s, %s)", (tweet_id, phrase_id))
+        conn.commit()
