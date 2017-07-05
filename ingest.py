@@ -1,3 +1,4 @@
+from database import do_upload
 import lxml.html
 import requests
 
@@ -16,4 +17,7 @@ def ingest_compact():
         phrases.append((latin, translation, notes))
 
     print("{} phrases ingested.".format(len(phrases)))
-    return phrases
+    do_upload(phrases)
+
+if __name__ == "__main__":
+    ingest_compact()

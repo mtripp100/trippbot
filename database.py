@@ -1,4 +1,3 @@
-from ingest import ingest_compact
 import psycopg2
 import psycopg2.extras
 import os
@@ -16,10 +15,8 @@ def get_connection():
         port=url.port
     )
 
-def do_upload():
-    phrases = ingest_compact()
+def do_upload(phrases):
     conn = get_connection()
-
     with conn.cursor() as cursor:
         psycopg2.extras.execute_values(cursor, "INSERT INTO phrases(latin, translation, notes) VALUES %s", phrases)
         conn.commit()
