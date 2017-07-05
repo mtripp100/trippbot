@@ -4,10 +4,10 @@ import tweepy
 import os
 
 def run():
-    start = datetime.datetime.utcnow()
-    print("Woke up at {}.".format(start))
-    if not should_tweet(start):
-        return
+#     start = datetime.datetime.utcnow()
+#     print("Woke up at {}.".format(start))
+#     if not should_tweet(start):
+#         return
 
     phrase = pick_phrase()
     message = "\"{}\" — {}".format(phrase[1], phrase[2])
