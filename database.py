@@ -24,4 +24,8 @@ def do_upload():
         psycopg2.extras.execute_values(cursor, "INSERT INTO phrases(latin, translation, notes) VALUES %s", phrases)
         conn.commit()
 
-do_upload()
+def pick_phrase():
+    conn = get_connection()
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT latin, translation, notes FROM phrases ORDER BY RANDOM() LIMIT 1")
+        return cursor.fetchone()
