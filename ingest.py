@@ -1,9 +1,9 @@
-from lxml import html
+import lxml.html
 import requests
 
 def ingest_compact():
     page = requests.get("https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)")
-    tree = html.fromstring(page.content)
+    tree = lxml.html.fromstring(page.content)
     
     rows = tree.xpath("//table[contains(@class, 'wikitable')]/tr[position() > 1]")
     print("{} rows downloaded.".format(len(rows)))

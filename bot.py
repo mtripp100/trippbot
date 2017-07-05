@@ -1,10 +1,10 @@
 from database import pick_phrase
-from datetime import datetime
+import datetime
 import tweepy
 import os
 
 def run():
-    start = datetime.utcnow()
+    start = datetime.datetime.utcnow()
     print("Woke up at {}.".format(start))
     if not should_tweet(start):
         return
