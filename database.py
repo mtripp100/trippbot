@@ -3,7 +3,7 @@ import psycopg2.extras
 import os
 import urllib.parse
 
-def get_connection():
+def _get_connection():
     urllib.parse.uses_netloc.append("postgres")
     url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
 
@@ -15,21 +15,20 @@ def get_connection():
         port=url.port
     )
 
+_connection = _get_connection()
+
 def do_upload(phrases):
-    conn = get_connection()
-    with conn.cursor() as cursor:
+    with _connection.cursor() as cursor:
         psycopg2.extras.execute_values(cursor, "INSERT INTO phrases(latin, translation, notes) VALUES %s", phrases)
-        conn.commit()
+        _connection.commit()
 
 def pick_phrase():
-    conn = get_connection()
-    with conn.cursor() as cursor:
+    with _connection.cursor() as cursor:
         cursor.execute("SELECT phrase_id, latin, translation, notes FROM phrases ORDER BY RANDOM() LIMIT 1")
-        conn.commit()
+        _connection.commit()
         return cursor.fetchone()
 
 def record_phrase(tweet_id, phrase_id):
-    conn = get_connection()
-    with conn.cursor() as cursor:
+    with _connection.cursor() as cursor:
         cursor.execute("INSERT INTO tweets(tweet_id, phrase_id) VALUES (%s, %s)", (tweet_id, phrase_id))
-        conn.commit()
+        _connection.commit()
