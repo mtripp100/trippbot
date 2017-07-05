@@ -11,9 +11,12 @@ def ingest_phrases():
 
     phrases = []
     for row in rows:
-        latin = "".join(row[0].xpath(".//text()"))
-        translation = "".join(row[1].xpath(".//text()"))
-        notes = "".join(row[2].xpath(".//text()")) if len(row) > 2 else None
+        latin = "".join(row[0].xpath(".//text()")).strip()
+        translation = "".join(row[1].xpath(".//text()")).strip()
+        if not latin or not translation:
+            continue
+
+        notes = "".join(row[2].xpath(".//text()")).strip() if len(row) > 2 else None
         phrases.append((latin, translation, notes))
 
     print("{} phrases ingested.".format(len(phrases)))

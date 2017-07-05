@@ -4,7 +4,7 @@ import os
 
 def run():
     phrase = pick_phrase()
-    message = "{} — {}".format(phrase[1], phrase[2])
+    message = "'{}' — {}".format(phrase[1], phrase[2])
     print(message)
 
     api = get_api()
