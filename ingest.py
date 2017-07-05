@@ -2,7 +2,7 @@ from database import do_upload
 import lxml.html
 import requests
 
-def ingest_compact():
+def ingest_phrases():
     page = requests.get("https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)")
     tree = lxml.html.fromstring(page.content)
     
@@ -20,4 +20,4 @@ def ingest_compact():
     do_upload(phrases)
 
 if __name__ == "__main__":
-    ingest_compact()
+    ingest_phrases()
