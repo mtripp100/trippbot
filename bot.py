@@ -1,6 +1,6 @@
 from database import pick_phrase, record_phrase
-import tweepy
 import os
+import tweepy
 
 def run():
     phrase = pick_phrase()
@@ -17,6 +17,7 @@ def get_api():
     auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_SECRET'])
 
     return tweepy.API(auth)
+
 
 if __name__ == "__main__":
     run()
