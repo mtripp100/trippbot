@@ -9,4 +9,3 @@ def quote(quote_id):
     if not quote:
         return abort(404)
     return render_template('quote.html', quote=quote)
-
