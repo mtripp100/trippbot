@@ -42,7 +42,8 @@ def should_tweet(dt, interval):
     return ((dt.time().hour % interval) == 0)
 
 def build_url(phrase_id):
-    return "https://murmuring-peak-37034.herokuapp.com/q/{}".format(phrase_id)
+    return "https://trippbot.herokuapp.com/q/{}".format(phrase_id)
+
 
 if __name__ == "__main__":
     run()
