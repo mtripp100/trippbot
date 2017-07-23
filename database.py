@@ -1,4 +1,5 @@
 import os
+import psycopg2
 import psycopg2.extras
 import urllib.parse
 
@@ -37,6 +38,9 @@ def record_phrase(tweet_id, phrase_id):
 
 def get_phrase(phrase_id):
     with _connection.cursor() as cursor:
-        cursor.execute("SELECT latin, translation, notes "
-                       "FROM phrases WHERE phrase_id=%(phrase_id)s", {"phrase_id": phrase_id})
+        try:
+            cursor.execute("SELECT latin, translation, notes "
+                           "FROM phrases WHERE phrase_id=%(phrase_id)s", {"phrase_id": phrase_id})
+        except psycopg2.DataError:
+            return None
         return cursor.fetchone()

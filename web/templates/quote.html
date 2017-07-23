@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block quote %}
-<p>{{ quote[0] }}</p>
-<p>{{ quote[1] }}</p>
-<p>{{ quote[2] }}</p>
+<div class="container">
+    <blockquote>
+        <p><em>{{ quote[0] }}</em></p>
+        <footer>{{ quote[1] }}</footer>
+    </blockquote>
+    <p>{{ quote[2] }}</p>
+</div>
 {% endblock %}
