@@ -23,7 +23,8 @@ def run(interval, force):
 
 def send_tweet():
     phrase = pick_phrase()
-    message = "\"{}\" — {}".format(phrase[1], phrase[2])
+    url = build_url(phrase[0])
+    message = "\"{}\" — {} {} #latin".format(phrase[1], phrase[2], url)
     print(message)
 
     api = get_api()
@@ -40,6 +41,8 @@ def get_api():
 def should_tweet(dt, interval):
     return ((dt.time().hour % interval) == 0)
 
+def build_url(phrase_id):
+    return "https://murmuring-peak-37034.herokuapp.com/q/{}".format(phrase_id)
 
 if __name__ == "__main__":
     run()
