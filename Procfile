@@ -1,2 +1,2 @@
-web: gunicorn --log-file - web:app
+web: gunicorn web:app
 bot: python bot.py
