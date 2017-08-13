@@ -1,6 +1,5 @@
 from flask import render_template, abort
 from web import app
-
 import database
 
 @app.route('/q/<quote_id>')
