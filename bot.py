@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 import tweepy
 import click
+import requests
 
 @click.command()
 @click.option("--interval", default=4, help="The script is invoked once an hour, so only tweet "
@@ -10,16 +11,16 @@ import click
               type=click.IntRange(1, 24))
 @click.option("--force", is_flag=True)
 def run(interval, force):
-    if force:
-        send_tweet()
-        return
-
     now = datetime.utcnow()
-    if should_tweet(now, interval):
+    if should_tweet(now, interval) or force:
         send_tweet()
-        return
+    else:
+        print("Nothing to do...")
 
-    print("Nothing to do...")
+    check_in()
+
+def should_tweet(dt, interval):
+    return ((dt.time().hour % interval) == 0)
 
 def send_tweet():
     phrase = pick_phrase()
@@ -32,17 +33,18 @@ def send_tweet():
 
     record_phrase(status.id_str, phrase[0])
 
+def build_url(phrase_id):
+    return "https://trippbot.herokuapp.com/q/{}".format(phrase_id)
+
 def get_api():
     auth = tweepy.OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
     auth.set_access_token(os.environ['ACCESS_TOKEN'], os.environ['ACCESS_SECRET'])
 
     return tweepy.API(auth)
 
-def should_tweet(dt, interval):
-    return ((dt.time().hour % interval) == 0)
-
-def build_url(phrase_id):
-    return "https://trippbot.herokuapp.com/q/{}".format(phrase_id)
+def check_in():
+    res = requests.get("https://nosnch.in/d744f3c018")
+    print(res.status_code, res.text)
 
 
 if __name__ == "__main__":
