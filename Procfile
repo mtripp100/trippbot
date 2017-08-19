@@ -1,2 +1,2 @@
-web: gunicorn web:app
-bot: python bot.py
+web: gunicorn trippbot.web:app
+bot: python trippbot/bot.py
