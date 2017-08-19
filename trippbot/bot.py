@@ -3,6 +3,7 @@ import datetime
 import os
 import tweepy
 import click
+import requests
 
 @click.command()
 @click.option("--interval", default=4, help="The script is invoked once an hour, so only tweet "
@@ -15,6 +16,8 @@ def run(interval, force):
         send_tweet()
     else:
         print("Nothing to do...")
+
+    check_in()
 
 def should_tweet(dt, interval):
     return ((dt.time().hour % interval) == 0)
@@ -38,6 +41,10 @@ def get_api():
     auth.set_access_token(os.environ["ACCESS_TOKEN"], os.environ["ACCESS_SECRET"])
 
     return tweepy.API(auth)
+
+def check_in():
+    res = requests.get(os.environ["DEADMANSSNITCH_URL"])
+    print(res.status_code, res.text)
 
 
 if __name__ == "__main__":
