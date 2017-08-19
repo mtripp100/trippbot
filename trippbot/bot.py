@@ -1,4 +1,4 @@
-from trippbot.database import pick_phrase, record_phrase
+from database import pick_phrase, record_phrase
 import datetime
 import os
 import tweepy

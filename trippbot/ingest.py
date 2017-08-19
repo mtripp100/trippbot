@@ -1,4 +1,4 @@
-from trippbot.database import upload_phrases
+from database import upload_phrases
 import lxml.html
 import requests
 
