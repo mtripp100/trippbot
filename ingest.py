@@ -1,4 +1,4 @@
-from database import do_upload
+from database import upload_phrases
 import lxml.html
 import requests
 
@@ -11,16 +11,23 @@ def ingest_phrases():
 
     phrases = []
     for row in rows:
-        latin = "".join(row[0].xpath(".//text()")).strip()
-        translation = "".join(row[1].xpath(".//text()")).strip()
-        if not latin or not translation:
+        latin = row[0].xpath(".//text()")
+        if len(latin) != 1:
             continue
+        latin = latin[0].strip()
 
-        notes = "".join(row[2].xpath(".//text()")).strip() if len(row) > 2 else None
+        translation = row[1].xpath(".//text()")
+        if len(translation) != 1:
+            continue
+        translation = translation[0].strip()
+
+        notes = "".join(row[2].xpath(".//text()")).strip() if len(row) > 2 else ""
+        if not notes:
+            notes = None
         phrases.append((latin, translation, notes))
 
-    print("{} phrases ingested.".format(len(phrases)))
-    do_upload(phrases)
+    print("{} phrases to insert.".format(len(phrases)))
+    upload_phrases(phrases)
 
 
 if __name__ == "__main__":
