@@ -9,6 +9,7 @@ def ingest_phrases():
 
     rows = tree.xpath("//table[contains(@class, 'wikitable')]/tr[position() > 1]")
     print("{} rows downloaded.".format(len(rows)))
+    assert rows
 
     phrases = []
     for row in rows:
