@@ -40,8 +40,9 @@ def send_tweet():
         try:
             status = api.update_status(status=message)
             record_phrase(status.id_str, phrase[0])
+            break
         except tweepy.TweepError as t:
-            print("#{}, error sending tweet: {}.".format(i, t.message))
+            print("#{}, error sending tweet: {}.".format(i, t))
 
 def build_url(phrase_id):
     return "https://trippbot.herokuapp.com/q/{}".format(phrase_id)
