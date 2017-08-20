@@ -5,6 +5,6 @@
         <p><em>{{ quote[0] }}</em></p>
         <footer>{{ quote[1] }}</footer>
     </blockquote>
-    <p>{{ quote[2] }}</p>
+    <p>{{ quote[2] if quote[2] else '' }}</p>
 </div>
 {% endblock %}

@@ -21,7 +21,7 @@ def ingest_phrases():
             continue
         translation = translation[0].strip()
 
-        notes = "".join(row[2].xpath(".//text()")).strip() if len(row) > 2 else ""
+        notes = "".join(row[2].xpath(".//text()")).strip() if len(row) > 2 else None
         phrases.append((latin, translation, notes))
 
     print("{} phrases to insert.".format(len(phrases)))
