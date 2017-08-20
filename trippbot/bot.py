@@ -22,6 +22,13 @@ def run(interval, force):
 def should_tweet(dt, interval):
     return ((dt.time().hour % interval) == 0)
 
+def check_in():
+    res = requests.get(os.environ["DEADMANSSNITCH_URL"])
+    print(res.status_code, res.text)
+
+
+MAX_TWEET_RETRIES = 5
+
 def send_tweet():
     phrase = pick_phrase()
     url = build_url(phrase[0])
@@ -29,9 +36,12 @@ def send_tweet():
     print(message)
 
     api = get_api()
-    status = api.update_status(status=message)
-
-    record_phrase(status.id_str, phrase[0])
+    for i in range(MAX_TWEET_RETRIES):
+        try:
+            status = api.update_status(status=message)
+            record_phrase(status.id_str, phrase[0])
+        except tweepy.TweepError as t:
+            print("#{}, error sending tweet: {}.".format(i, t.message))
 
 def build_url(phrase_id):
     return "https://trippbot.herokuapp.com/q/{}".format(phrase_id)
@@ -41,10 +51,6 @@ def get_api():
     auth.set_access_token(os.environ["ACCESS_TOKEN"], os.environ["ACCESS_SECRET"])
 
     return tweepy.API(auth)
-
-def check_in():
-    res = requests.get(os.environ["DEADMANSSNITCH_URL"])
-    print(res.status_code, res.text)
 
 
 if __name__ == "__main__":
