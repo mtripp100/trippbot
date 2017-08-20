@@ -26,12 +26,11 @@ _connection = _get_connection()
 
 def upload_phrases(phrases):
     with _get_cursor(_connection) as cursor:
+        cursor.execute("DELETE FROM phrases")
         psycopg2.extras.execute_values(
             cursor,
-            "INSERT INTO phrases(latin, translation, notes) VALUES %s "
-            "ON CONFLICT(latin) DO UPDATE "
-            "SET translation=excluded.translation, notes=excluded.notes",
-            phrases
+            "INSERT INTO phrases(phrase_id, latin, translation, notes) "
+            "VALUES %s ", phrases
         )
 
 def pick_phrase():

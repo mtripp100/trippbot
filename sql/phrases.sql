@@ -1,6 +1,7 @@
 create table phrases (
-    phrase_id serial primary key,
-    latin text not null unique,
+    phrase_id uuid primary key,
+    latin text not null,
     translation text not null,
-    notes text default '',
+    notes text,
+    precedence serial
 );

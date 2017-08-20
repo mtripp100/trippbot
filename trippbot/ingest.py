@@ -1,6 +1,7 @@
 from database import upload_phrases
 import lxml.html
 import requests
+import hashlib
 
 def ingest_phrases():
     page = requests.get("https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)")
@@ -22,7 +23,8 @@ def ingest_phrases():
         translation = translation[0].strip()
 
         notes = "".join(row[2].xpath(".//text()")).strip() if len(row) > 2 else None
-        phrases.append((latin, translation, notes))
+        phrase_id = hashlib.md5(latin.encode()).hexdigest()
+        phrases.append((phrase_id, latin, translation, notes))
 
     print("{} phrases to insert.".format(len(phrases)))
     upload_phrases(phrases)
