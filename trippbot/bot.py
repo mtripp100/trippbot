@@ -45,7 +45,7 @@ def send_tweet():
             print("#{}, error sending tweet: {}.".format(i, t))
 
 def build_url(phrase_id):
-    return "https://trippbot.herokuapp.com/q/{}".format(phrase_id)
+    return "https://trippbot.herokuapp.com/q/{}".format(phrase_id.replace("-", ""))
 
 def get_api():
     auth = tweepy.OAuthHandler(os.environ["CONSUMER_KEY"], os.environ["CONSUMER_SECRET"])
