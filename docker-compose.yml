@@ -3,10 +3,6 @@ services:
     web:
         build: .
         image: trippbot
-        ports:
-            - "8081:8000"
-        env_file:
-            - .dockerenv
         depends_on:
             - db
     db:
@@ -14,7 +10,5 @@ services:
         volumes:
             - "./sql:/docker-entrypoint-initdb.d"
             - "dbdata:/var/lib/postgresql/data"
-        environment:
-            - POSTGRES_DB=trippbot
 volumes:
     dbdata:
