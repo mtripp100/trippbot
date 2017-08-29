@@ -1,4 +1,4 @@
-from database import pick_phrase, record_phrase
+from database import pick_phrase
 import datetime
 import os
 import tweepy
@@ -39,7 +39,6 @@ def send_tweet():
     for i in range(MAX_TWEET_RETRIES):
         try:
             status = api.update_status(status=message)
-            record_phrase(status.id_str, phrase[0])
             break
         except tweepy.TweepError as t:
             print("#{}, error sending tweet: {}.".format(i, t))

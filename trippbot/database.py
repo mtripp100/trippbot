@@ -41,13 +41,6 @@ def pick_phrase():
         )
         return cursor.fetchone()
 
-def record_phrase(tweet_id, phrase_id):
-    with _get_cursor(_connection) as cursor:
-        cursor.execute(
-            "INSERT INTO tweets(tweet_id, phrase_id) "
-            "VALUES (%s, %s)", (tweet_id, phrase_id)
-        )
-
 def get_phrase(phrase_id):
     with _get_cursor(_connection) as cursor:
         try:
