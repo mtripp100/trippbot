@@ -1,4 +1,4 @@
-from database import upload_phrases
+from database import upload_phrases, count_phrases
 import lxml.html
 import requests
 import hashlib
@@ -8,7 +8,7 @@ def ingest_phrases():
     tree = lxml.html.fromstring(page.content)
 
     rows = tree.xpath("//table[contains(@class, 'wikitable')]/tr[position() > 1]")
-    print("{} rows downloaded.".format(len(rows)))
+    print("Phrases downloaded: {}.".format(len(rows)))
     assert rows
 
     phrases = []
@@ -27,9 +27,11 @@ def ingest_phrases():
         phrase_id = hashlib.md5(latin.encode()).hexdigest()
         phrases.append((phrase_id, latin, translation, notes))
 
-    print("{} phrases to insert.".format(len(phrases)))
+    print("To insert: {}.".format(len(phrases)))
     upload_phrases(phrases)
 
+    num_uploaded = count_phrases()
+    print("In database: {}.".format(num_uploaded))
 
 if __name__ == "__main__":
     ingest_phrases()

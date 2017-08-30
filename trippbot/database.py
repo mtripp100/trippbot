@@ -33,6 +33,14 @@ def upload_phrases(phrases):
             "VALUES %s ", phrases
         )
 
+def count_phrases():
+    with _get_cursor(_connection) as cursor:
+        cursor.execute(
+            "SELECT COUNT(*) "
+            "FROM phrases"
+        )
+        return cursor.fetchone()[0]
+
 def pick_phrase():
     with _get_cursor(_connection) as cursor:
         cursor.execute(
