@@ -31,8 +31,7 @@ MAX_TWEET_RETRIES = 5
 
 def send_tweet():
     phrase = pick_phrase()
-    url = build_url(phrase[0])
-    message = "\"{}\" — {} {} #latin".format(phrase[1], phrase[2], url)
+    message = "\"{}\" — {} #latin".format(phrase[1], phrase[2])
     print(message)
 
     api = get_api()
@@ -42,9 +41,6 @@ def send_tweet():
             break
         except tweepy.TweepError as t:
             print("#{}, error sending tweet: {}.".format(i, t))
-
-def build_url(phrase_id):
-    return "https://trippbot.herokuapp.com/q/{}".format(phrase_id.replace("-", ""))
 
 def get_api():
     auth = tweepy.OAuthHandler(os.environ["CONSUMER_KEY"], os.environ["CONSUMER_SECRET"])

@@ -1,10 +1,8 @@
 version: "3"
 services:
-    web:
+    bot:
         build: .
         image: trippbot
-        ports:
-            - "8000"
         env_file:
             - .env
         depends_on:
