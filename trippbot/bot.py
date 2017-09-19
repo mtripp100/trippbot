@@ -37,7 +37,7 @@ def send_tweet():
     api = get_api()
     for i in range(MAX_TWEET_RETRIES):
         try:
-            status = api.update_status(status=message)
+            api.update_status(status=message)
             break
         except tweepy.TweepError as t:
             print("#{}, error sending tweet: {}.".format(i, t))

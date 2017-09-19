@@ -17,11 +17,15 @@ def ingest_phrases():
         if len(latin) != 1:
             continue
         latin = latin[0].strip()
+        if not latin:
+            continue
 
         translation = row[1].xpath(".//text()")
         if len(translation) != 1:
             continue
         translation = translation[0].strip()
+        if not translation:
+            continue
 
         notes = "".join(row[2].xpath(".//text()")).strip() if len(row) > 2 else None
         phrase_id = hashlib.md5(latin.encode()).hexdigest()
@@ -32,6 +36,7 @@ def ingest_phrases():
 
     num_uploaded = count_phrases()
     print("In database: {}.".format(num_uploaded))
+
 
 if __name__ == "__main__":
     ingest_phrases()
