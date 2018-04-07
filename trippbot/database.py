@@ -3,6 +3,7 @@ import psycopg2.extras
 import urllib.parse
 import contextlib
 
+
 def _get_connection():
     urllib.parse.uses_netloc.append("postgres")
     url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
@@ -15,6 +16,7 @@ def _get_connection():
         port=url.port
     )
 
+
 @contextlib.contextmanager
 def _get_cursor(connection):
     with connection as conn:
@@ -23,6 +25,7 @@ def _get_cursor(connection):
 
 
 _connection = _get_connection()
+
 
 def upload_phrases(phrases):
     with _get_cursor(_connection) as cursor:
@@ -33,6 +36,7 @@ def upload_phrases(phrases):
             "VALUES %s ", phrases
         )
 
+
 def count_phrases():
     with _get_cursor(_connection) as cursor:
         cursor.execute(
@@ -41,6 +45,7 @@ def count_phrases():
         )
         return cursor.fetchone()[0]
 
+
 def pick_phrase():
     with _get_cursor(_connection) as cursor:
         cursor.execute(
@@ -48,6 +53,7 @@ def pick_phrase():
             "FROM phrases ORDER BY RANDOM() LIMIT 1"
         )
         return cursor.fetchone()
+
 
 def get_phrase(phrase_id):
     with _get_cursor(_connection) as cursor:

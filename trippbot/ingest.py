@@ -3,6 +3,7 @@ import lxml.html
 import requests
 import hashlib
 
+
 def ingest_phrases():
     page = requests.get("https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)")
     tree = lxml.html.fromstring(page.content)

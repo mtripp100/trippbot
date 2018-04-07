@@ -5,6 +5,7 @@ import tweepy
 import click
 import requests
 
+
 @click.command()
 @click.option("--interval", default=4, help="The script is invoked once an hour, so only tweet "
               "if the current hour (UTC) divides exactly by this number.",
@@ -19,8 +20,10 @@ def run(interval, force):
 
     check_in()
 
+
 def should_tweet(dt, interval):
     return ((dt.time().hour % interval) == 0)
+
 
 def check_in():
     res = requests.get(os.environ["DEADMANSSNITCH_URL"])
@@ -28,6 +31,7 @@ def check_in():
 
 
 MAX_TWEET_RETRIES = 5
+
 
 def send_tweet():
     phrase = pick_phrase()
@@ -41,6 +45,7 @@ def send_tweet():
             break
         except tweepy.TweepError as t:
             print("#{}, error sending tweet: {}.".format(i, t))
+
 
 def get_api():
     auth = tweepy.OAuthHandler(os.environ["CONSUMER_KEY"], os.environ["CONSUMER_SECRET"])
