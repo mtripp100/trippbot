@@ -1,16 +1,10 @@
-from database import pick_phrase
+from .database import pick_phrase
 import datetime
 import os
 import tweepy
-import click
 import requests
 
 
-@click.command()
-@click.option("--interval", default=4, help="The script is invoked once an hour, so only tweet "
-              "if the current hour (UTC) divides exactly by this number.",
-              type=click.IntRange(1, 24))
-@click.option("--force", is_flag=True)
 def run(interval, force):
     now = datetime.datetime.utcnow()
     if should_tweet(now, interval) or force:
@@ -52,7 +46,3 @@ def get_api():
     auth.set_access_token(os.environ["ACCESS_TOKEN"], os.environ["ACCESS_SECRET"])
 
     return tweepy.API(auth)
-
-
-if __name__ == "__main__":
-    run()

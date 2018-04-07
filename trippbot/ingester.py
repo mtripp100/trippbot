@@ -1,10 +1,10 @@
-from database import upload_phrases, count_phrases
+from .database import upload_phrases, count_phrases
 import lxml.html
 import requests
 import hashlib
 
 
-def ingest_phrases():
+def run():
     page = requests.get("https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)")
     tree = lxml.html.fromstring(page.content)
 
@@ -37,7 +37,3 @@ def ingest_phrases():
 
     num_uploaded = count_phrases()
     print("In database: {}.".format(num_uploaded))
-
-
-if __name__ == "__main__":
-    ingest_phrases()

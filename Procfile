@@ -1,1 +1,1 @@
-bot: python trippbot/bot.py
+bot: python trippbot.py
