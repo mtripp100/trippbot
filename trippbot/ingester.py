@@ -8,7 +8,7 @@ def run():
     page = requests.get("https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)")
     tree = lxml.html.fromstring(page.content)
 
-    rows = tree.xpath("//table[contains(@class, 'wikitable')]/tr[position() > 1]")
+    rows = tree.xpath("//table[contains(@class, 'wikitable')]//tr[position() > 1]")
     print("Phrases downloaded: {}.".format(len(rows)))
     assert rows
 
