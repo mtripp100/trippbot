@@ -14,7 +14,7 @@ pytest = "*"
 
 [packages]
 lxml = "*"
-"psycopg2" = "*"
+"psycopg2-binary" = "*"
 requests = "*"
 tweepy = "*"
 click = "*"
