@@ -5,9 +5,13 @@ from trippbot import bot, ingester
 
 @click.command()
 @click.option("--ingest", is_flag=True)
-@click.option("--interval", default=4, help="The script is invoked once an hour, so only tweet "
-              "if the current hour (UTC) divides exactly by this number.",
-              type=click.IntRange(1, 24))
+@click.option(
+    "--interval",
+    default=4,
+    help="The script is invoked once an hour, so only tweet "
+    "if the current hour (UTC) divides exactly by this number.",
+    type=click.IntRange(1, 24),
+)
 @click.option("--force", is_flag=True)
 def cli(ingest, interval, force):
     if ingest:
