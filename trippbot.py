@@ -1,5 +1,6 @@
-from trippbot import ingester, bot
 import click
+
+from trippbot import bot, ingester
 
 
 @click.command()

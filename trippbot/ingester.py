@@ -1,7 +1,9 @@
-from .database import upload_phrases, count_phrases
+import hashlib
+
 import lxml.html
 import requests
-import hashlib
+
+from .database import count_phrases, upload_phrases
 
 
 def run():

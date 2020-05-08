@@ -1,8 +1,10 @@
-from .database import pick_phrase
 import datetime
 import os
-import tweepy
+
 import requests
+import tweepy
+
+from .database import pick_phrase
 
 
 def run(interval, force):
@@ -16,7 +18,7 @@ def run(interval, force):
 
 
 def should_tweet(dt, interval):
-    return ((dt.time().hour % interval) == 0)
+    return (dt.time().hour % interval) == 0
 
 
 def check_in():
@@ -29,7 +31,7 @@ MAX_TWEET_RETRIES = 5
 
 def send_tweet():
     phrase = pick_phrase()
-    message = "\"{}\" — {} #latin #wisdom #quotes".format(phrase[1], phrase[2])
+    message = '"{}" — {} #latin'.format(phrase[1], phrase[2])
     print(message)
 
     api = get_api()

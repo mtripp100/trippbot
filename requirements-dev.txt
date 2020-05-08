@@ -1,4 +1,5 @@
-pylint
+black
 flake8
-rope
+pylint
 pytest
+rope
