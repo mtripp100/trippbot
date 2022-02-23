@@ -1,0 +1,5 @@
+click
+lxml
+psycopg2-binary
+requests
+tweepy
