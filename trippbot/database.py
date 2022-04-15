@@ -46,10 +46,7 @@ def count_phrases():
 
 def pick_phrase():
     with _get_cursor(_connection) as cursor:
-        cursor.execute(
-            "SELECT phrase_id, latin, translation, notes "
-            "FROM phrases ORDER BY RANDOM() LIMIT 1"
-        )
+        cursor.execute("SELECT phrase_id, latin, translation, notes " "FROM phrases ORDER BY RANDOM() LIMIT 1")
         return cursor.fetchone()
 
 
@@ -57,8 +54,7 @@ def get_phrase(phrase_id):
     with _get_cursor(_connection) as cursor:
         try:
             cursor.execute(
-                "SELECT latin, translation, notes "
-                "FROM phrases WHERE phrase_id=%(phrase_id)s",
+                "SELECT latin, translation, notes " "FROM phrases WHERE phrase_id=%(phrase_id)s",
                 {"phrase_id": phrase_id},
             )
         except psycopg2.DataError:

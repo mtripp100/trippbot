@@ -39,14 +39,12 @@ def send_tweet():
         try:
             api.update_status(status=message)
             break
-        except tweepy.TweepError as t:
+        except tweepy.TweepyException as t:
             print("#{}, error sending tweet: {}.".format(i, t))
 
 
 def get_api():
-    auth = tweepy.OAuthHandler(
-        os.environ["CONSUMER_KEY"], os.environ["CONSUMER_SECRET"]
-    )
+    auth = tweepy.OAuthHandler(os.environ["CONSUMER_KEY"], os.environ["CONSUMER_SECRET"])
     auth.set_access_token(os.environ["ACCESS_TOKEN"], os.environ["ACCESS_SECRET"])
 
     return tweepy.API(auth)
